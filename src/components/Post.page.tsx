@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   COMMENT_ONPOST,
   FTECH_FOLLOWED_POSTS,
@@ -9,7 +10,6 @@ import {
 import { selectAllPosts } from "../selectors/PostSelectors";
 import { selectAllUsers, selectCurrentUser } from "../selectors/UserSelectors";
 import { dateSorter, formatDate } from "../helpers/formattedDate";
-import { Link, useNavigate } from "react-router-dom";
 import { Post } from "../store/postSlice";
 
 const PostPage = () => {
@@ -18,13 +18,13 @@ const PostPage = () => {
   const posts = useSelector(selectAllPosts);
   const users = useSelector(selectAllUsers);
   const currentUser = useSelector(selectCurrentUser);
-
   const navigate = useNavigate();
+
   const handleLike = (postId: string) => {
     dispatch({ type: LIKE_POST, payload: { postId } });
   };
 
-  const handleUnLike = (postId: string) => {
+  const handleUnlike = (postId: string) => {
     dispatch({ type: UNLIKE_POST, payload: { postId } });
   };
 
@@ -72,6 +72,7 @@ const PostPage = () => {
       </div>
     );
   }
+
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
   };
@@ -93,7 +94,7 @@ const PostPage = () => {
       >
         Back
       </button>
-      <div className="flex justify-center mb-4 gap-4">
+      <div className="flex justify-center flex-col items-center mb-4 gap-4">
         <Link
           to="/users"
           className="text-blue-500 hover:text-blue-700 font-bold"
@@ -126,7 +127,7 @@ const PostPage = () => {
                 className="text-blue-500 hover:text-blue-700"
                 onClick={() =>
                   shouldShowLikeButton(post._id)
-                    ? handleUnLike(post._id)
+                    ? handleUnlike(post._id)
                     : handleLike(post._id)
                 }
               >

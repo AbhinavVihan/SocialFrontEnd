@@ -39,11 +39,11 @@ const UsersPage = () => {
         </Link>
       </div>
       <h1 className="text-3xl font-bold mb-4">Social Media Page</h1>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {users
           .filter((user) => user._id !== currentUser?._id)
           .map((user: any) => (
-            <div key={user._id} className="border-black  rounded-lg shadow p-4">
+            <div key={user._id} className="border-black rounded-lg shadow p-4">
               <img
                 src={user.imageUrl}
                 alt={user.userName}

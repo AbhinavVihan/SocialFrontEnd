@@ -6,7 +6,6 @@ import {
   UNFOLLOW_USER,
   USER_BYID,
   USER_LOGIN,
-  USER_LOGOUT,
   USER_SIGNUP,
   fetchUserByIdSuccess,
   fetchUsersFailure,
@@ -49,7 +48,7 @@ function* handleLogin(action: any): Generator<any, void, any> {
     });
 
     if (response.status === 200) {
-      const { token, user } = response.data; // Assuming the token is returned in the response data
+      const { token, user } = response.data;
       // Save the token in localStorage
       localStorage.setItem("token", token);
       // Login success
@@ -126,8 +125,6 @@ function* handleFollowUser(action: any): Generator<any, void, any> {
 
     yield axios.post(`${BASE_URL}/user/follow`, { userIdToFollow }, config);
     yield put({ type: FETCH_USERS });
-
-    // Fetch updated user list after following user
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);
@@ -148,8 +145,6 @@ function* handleUnFollowUser(action: any): Generator<any, void, any> {
     yield axios.post(`${BASE_URL}/user/unfollow`, { userIdToUnFollow }, config);
 
     yield put({ type: FETCH_USERS });
-
-    // Fetch updated user list after following user
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);

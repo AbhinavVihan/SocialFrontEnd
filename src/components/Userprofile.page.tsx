@@ -86,16 +86,15 @@ const UserProfilePage: React.FC<{}> = () => {
           </button>
         </div>
       )}
-      <div className="flex items-center flex-col">
-        <div className="w-1/4 mb-4">
+      <div className="flex flex-col items-center">
+        <div className="w-1/2 sm:w-1/4 mb-4">
           <img
             src={user.imageUrl}
             alt="Profile Picture"
             className="rounded-full h-40 w-40 object-cover mx-auto"
           />
         </div>
-        <div className="w-3/4">
-          {/* <p className="text-lg mb-4">{user.bio}</p> */}
+        <div className="w-full sm:w-3/4">
           <h2 className="text-2xl font-bold mb-4">Posts</h2>
           {user.posts.length > 0 ? (
             <div className="grid grid-cols-1 gap-6">

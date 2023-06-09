@@ -56,8 +56,6 @@ function* handleCreatePost(action: any): Generator<any, void, any> {
 }
 
 function* getFollowingPostsSaga(): Generator<any, void, any> {
-  // Set the authorization header in the axios instance
-
   const config = {
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
@@ -83,8 +81,6 @@ function* getFollowingPostsSaga(): Generator<any, void, any> {
 function* likePost(action: any): Generator<any, void, any> {
   const { postId } = action.payload;
 
-  // Set the authorization header in the axios instance
-
   const config = {
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
@@ -108,8 +104,6 @@ function* likePost(action: any): Generator<any, void, any> {
 function* unlikePost(action: any): Generator<any, void, any> {
   const { postId } = action.payload;
 
-  // Set the authorization header in the axios instance
-
   const config = {
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,
@@ -131,7 +125,6 @@ function* unlikePost(action: any): Generator<any, void, any> {
 function* addComment(action: any): Generator<any, void, any> {
   const { postId, content } = action.payload;
 
-  console.log(content);
   const config = {
     headers: {
       Authorization: `Bearer ${getTokenFromLocalStorage()}`,

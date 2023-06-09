@@ -4,9 +4,5 @@ import postSaga from "./postSaga";
 
 export default function* rootSaga() {
   console.log("rootsaga");
-  yield all([
-    // Add other sagas here
-    userSaga(),
-    postSaga(),
-  ]);
+  yield all([userSaga(), postSaga()]);
 }

@@ -81,7 +81,7 @@ const CreatePostPage = () => {
                     name="title"
                     type="text"
                     placeholder="Title"
-                    className="border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm p-2 mt-2"
+                    className="border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm p-2 mt-2 w-full"
                   />
                   <ErrorMessage
                     name="title"
@@ -94,7 +94,7 @@ const CreatePostPage = () => {
                     name="content"
                     as="textarea"
                     placeholder="Content"
-                    className="border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm p-2 mt-2"
+                    className="border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm p-2 mt-2 w-full"
                   />
                   <ErrorMessage
                     name="content"
@@ -125,7 +125,7 @@ const CreatePostPage = () => {
                   <button
                     type="submit"
                     disabled={!isValid}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 w-full"
                   >
                     Create Post
                   </button>
