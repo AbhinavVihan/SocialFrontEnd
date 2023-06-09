@@ -11,6 +11,7 @@ import { selectAllPosts } from "../selectors/PostSelectors";
 import { selectAllUsers, selectCurrentUser } from "../selectors/UserSelectors";
 import { dateSorter, formatDate } from "../helpers/formattedDate";
 import { Post } from "../store/postSlice";
+import Loading from "./Loading";
 
 const PostPage = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const PostPage = () => {
   }, [dispatch]);
 
   const shouldShowLikeButton = (currPostId: string) => {
-    const post = posts.find((post) => post._id === currPostId);
+    const post = posts?.find((post) => post._id === currPostId);
     const liked = post?.likes.includes(currentUser?._id ?? "");
     return liked;
   };
@@ -54,7 +55,9 @@ const PostPage = () => {
     </Link>
   );
 
-  if (posts.length === 0) {
+  if (posts?.length === 0) {
+    return <Loading />;
+  } else if (!posts) {
     return (
       <div className="container mx-auto py-8">
         <div className="flex flex-col items-center justify-center">

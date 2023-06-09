@@ -4,7 +4,7 @@ interface PostState {
   post: any;
   error: string | null;
   loading: boolean;
-  followedPosts: Post[];
+  followedPosts: Post[] | null;
 }
 
 export interface Post {
@@ -36,7 +36,7 @@ const initialState: PostState = {
   post: null,
   error: null,
   loading: false,
-  followedPosts: [],
+  followedPosts: null,
 };
 
 const postSlice = createSlice({

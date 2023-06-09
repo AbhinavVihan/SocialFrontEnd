@@ -51,7 +51,7 @@ const UserProfilePage: React.FC<{}> = () => {
   };
 
   const shouldShowLikeButton = (currPostId: string) => {
-    const post = posts.find((post) => post._id === currPostId);
+    const post = posts?.find((post) => post._id === currPostId);
     const liked = post?.likes.includes(currentUser?._id ?? "");
     return liked;
   };

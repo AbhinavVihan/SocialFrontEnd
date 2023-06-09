@@ -142,6 +142,7 @@ function* handleFollowUser(action: any): Generator<any, void, any> {
 
     yield axios.post(`${BASE_URL}/user/follow`, { userIdToFollow }, config);
     yield put({ type: FETCH_USERS });
+    yield put({ type: FTECH_FOLLOWED_POSTS });
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);
@@ -162,6 +163,7 @@ function* handleUnFollowUser(action: any): Generator<any, void, any> {
     yield axios.post(`${BASE_URL}/user/unfollow`, { userIdToUnFollow }, config);
 
     yield put({ type: FETCH_USERS });
+    yield put({ type: FTECH_FOLLOWED_POSTS });
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);
