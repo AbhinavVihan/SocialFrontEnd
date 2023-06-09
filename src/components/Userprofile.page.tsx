@@ -21,7 +21,7 @@ const UserProfilePage: React.FC<{}> = () => {
 
   useEffect(() => {
     dispatch({ type: USER_BYID, payload: { userId } });
-  }, [call, userId]);
+  }, [call, userId, dispatch]);
 
   const handleLike = (postId: string) => {
     dispatch({ type: LIKE_POST, payload: { postId } });

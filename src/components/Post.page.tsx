@@ -35,7 +35,7 @@ const PostPage = () => {
 
   useEffect(() => {
     dispatch({ type: FTECH_FOLLOWED_POSTS });
-  }, []);
+  }, [dispatch]);
 
   const shouldShowLikeButton = (currPostId: string) => {
     const post = posts.find((post) => post._id === currPostId);

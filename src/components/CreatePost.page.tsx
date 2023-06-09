@@ -20,11 +20,11 @@ const CreatePostPage = () => {
   >([]);
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: FETCH_USERS });
-  }, []);
+  }, [dispatch]);
 
-  const dispatch = useDispatch();
   const users = useSelector(selectAllUsers);
   const currentUser = useSelector(selectCurrentUser);
 

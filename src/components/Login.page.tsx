@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
       navigate("/posts");
       dispatch(setRedirect(false)); // Reset the redirect flag
     }
-  }, [redirect, navigate]);
+  }, [redirect, navigate, dispatch]);
 
   const handleLogin = (values: any) => {
     const { userName, password } = values;

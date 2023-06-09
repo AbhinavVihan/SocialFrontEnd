@@ -76,11 +76,6 @@ function* handleLogin(action: any): Generator<any, void, any> {
   }
 }
 
-function* handleLogout(): Generator<any, void, any> {
-  localStorage.removeItem("token");
-  // yield put(logout());
-}
-
 function* handleSignup(action: any): Generator<any, void, any> {
   const { userName, email, password, image } = action.payload;
   try {
@@ -219,7 +214,6 @@ function* getUserById(action: any): Generator<any, void, any> {
 function* userSaga() {
   yield takeEvery(FETCH_ME, fetchMe);
   yield takeEvery(USER_LOGIN, handleLogin);
-  yield takeEvery(USER_LOGOUT, handleLogout);
 
   yield takeEvery(USER_SIGNUP, handleSignup);
   yield takeEvery(FETCH_USERS, handleFetchUsers);

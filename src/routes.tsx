@@ -34,7 +34,7 @@ const AppContent = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_ME });
-  }, []);
+  }, [dispatch]);
 
   const showUserLink = !["/signup", "/", `/users/${currentUser?._id}`].includes(
     location.pathname

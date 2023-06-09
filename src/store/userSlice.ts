@@ -50,6 +50,7 @@ const userSlice = createSlice({
     logout: (state) => {
       state.currentUser = null;
       state.redirect = false;
+      localStorage.removeItem("token");
     },
     signup: (state, action: PayloadAction<{ token: string; user: User }>) => {
       state.currentUser = action.payload.user;
