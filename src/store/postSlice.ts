@@ -63,6 +63,12 @@ const postSlice = createSlice({
     getFollowingPostsSuccess: (state, action) => {
       state.followedPosts = action.payload;
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
@@ -72,6 +78,8 @@ export const {
   createPostFailure,
   resetPost,
   getFollowingPostsSuccess,
+  setError,
+  setLoading,
 } = postSlice.actions;
 
 export default postSlice.reducer;

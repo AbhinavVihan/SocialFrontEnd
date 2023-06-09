@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { call, put } from "redux-saga/effects";
 
 export const BASE_URL = "https://social-backend-1amu.onrender.com";
+// export const BASE_URL = "http://localhost:3001";
 
 interface ApiResponse<T = any> {
   data: T;

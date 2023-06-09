@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser, selectUserById } from "../selectors/UserSelectors";
-import { useNavigate, useParams } from "react-router-dom";
-import { USER_BYID, logout } from "../store/userSlice";
+import {
+  selectAllUsers,
+  selectCurrentUser,
+  selectUserById,
+} from "../selectors/UserSelectors";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { USER_BYID, logout, setError } from "../store/userSlice";
 import { COMMENT_ONPOST, LIKE_POST, UNLIKE_POST } from "../sagas/postSaga";
 import { dateSorter, formatDate } from "../helpers/formattedDate";
 import { selectAllPosts } from "../selectors/PostSelectors";
@@ -18,6 +22,7 @@ const UserProfilePage: React.FC<{}> = () => {
   const [call, setCall] = useState(false);
   const navigate = useNavigate();
   const isCurrentUser = currentUser?._id === userId;
+  const allUsers = useSelector(selectAllUsers);
 
   useEffect(() => {
     dispatch({ type: USER_BYID, payload: { userId } });
@@ -50,9 +55,12 @@ const UserProfilePage: React.FC<{}> = () => {
     const liked = post?.likes.includes(currentUser?._id ?? "");
     return liked;
   };
+  const author = (authorId: string) => {
+    return allUsers.find((u) => u._id === authorId);
+  };
 
   const handleLogout = () => {
-    // dispatch({ type: USER_LOGOUT });
+    dispatch(setError(""));
     dispatch(logout());
     navigate("/");
   };
@@ -154,7 +162,13 @@ const UserProfilePage: React.FC<{}> = () => {
                         <h2 className="text-lg font-bold mb-2">Comments</h2>
                         {post.comments.map((comment: any, index: number) => (
                           <p key={index} className="mb-2">
-                            {comment.content}
+                            <Link
+                              className="font-bold hover:text-blue-500"
+                              to={`/users/${comment.author}`}
+                            >
+                              {author(comment.author)?.userName}
+                            </Link>{" "}
+                            :{comment.content}
                           </p>
                         ))}
                       </div>

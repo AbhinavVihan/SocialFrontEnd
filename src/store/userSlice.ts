@@ -17,6 +17,8 @@ interface UserState {
   ById: { [id: string]: User };
   redirect: boolean;
   message: string | null;
+  error: string | null;
+  loading: boolean;
 }
 
 interface User {
@@ -35,6 +37,8 @@ const initialState: UserState = {
   ById: {},
   redirect: false,
   message: null,
+  error: null,
+  loading: false,
 };
 
 const userSlice = createSlice({
@@ -76,6 +80,12 @@ const userSlice = createSlice({
     stopMessage: (state) => {
       state.message = null;
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
@@ -90,6 +100,8 @@ export const {
   setRedirect,
   startMessage,
   stopMessage,
+  setError,
+  setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;

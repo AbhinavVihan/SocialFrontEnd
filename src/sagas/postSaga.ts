@@ -4,6 +4,8 @@ import {
   createPostSuccess,
   createPostFailure,
   getFollowingPostsSuccess,
+  setLoading,
+  setError,
 } from "../store/postSlice";
 import { FETCH_USERS } from "../store/userSlice";
 import { BASE_URL } from "../helpers/api";
@@ -21,6 +23,7 @@ function getTokenFromLocalStorage() {
 
 function* handleCreatePost(action: any): Generator<any, void, any> {
   const { title, content, image, selectedTags } = action.payload;
+  yield put(setLoading(true));
 
   try {
     const formData = new FormData();
@@ -47,11 +50,16 @@ function* handleCreatePost(action: any): Generator<any, void, any> {
 
     if (response.status === 201) {
       yield put(createPostSuccess(response.data));
+      yield put(setLoading(false));
+      yield put(setError(""));
     } else {
       yield put(createPostFailure("Failed to create post"));
+      yield put(setLoading(false));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(createPostFailure("Error creating post"));
+    yield put(setLoading(false));
+    yield put(setError(error.response.data.error));
   }
 }
 

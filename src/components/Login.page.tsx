@@ -4,11 +4,14 @@ import { USER_LOGIN, setRedirect } from "../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../store/types";
+import { selectError, selectLoading } from "../selectors/UserSelectors";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const redirect = useSelector((state: RootState) => state.users_all.redirect);
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
+  const loading = useSelector(selectLoading);
 
   useEffect(() => {
     if (redirect) {
@@ -86,6 +89,12 @@ const LoginPage: React.FC = () => {
             </Form>
           )}
         </Formik>
+        {loading && (
+          <div className="text-green-500 text-xs mt-1">Please wait...</div>
+        )}
+        {!loading && error && (
+          <div className="text-red-500 text-xs mt-1">{error}</div>
+        )}
         <div className="text-center">
           Not registered yet?{" "}
           <Link to="/signup" className="text-indigo-600 hover:text-indigo-800">

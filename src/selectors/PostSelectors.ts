@@ -9,3 +9,13 @@ export const selectAllPosts = createSelector(
   [selectPostState],
   (posts) => posts.followedPosts
 );
+
+export const selectPostError = createSelector(
+  [selectPostState],
+  (post) => post.error
+);
+
+export const selectPostLoading = createSelector(
+  [selectPostState],
+  (post) => post.loading
+);

@@ -7,6 +7,7 @@ import { selectAllUsers, selectCurrentUser } from "../selectors/UserSelectors";
 import Select from "react-select";
 import { FETCH_USERS } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
+import { selectPostError, selectPostLoading } from "../selectors/PostSelectors";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -19,11 +20,19 @@ const CreatePostPage = () => {
     { label: string; value: string }[]
   >([]);
   const navigate = useNavigate();
+  const postError = useSelector(selectPostError);
+  const postLoading = useSelector(selectPostLoading);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: FETCH_USERS });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!postLoading && postError === "") {
+      navigate("/posts");
+    }
+  }, [postLoading, postError]);
 
   const users = useSelector(selectAllUsers);
   const currentUser = useSelector(selectCurrentUser);
@@ -39,7 +48,6 @@ const CreatePostPage = () => {
       type: CREATE_POST,
       payload: { title, content, image: selectedImage, selectedTags },
     });
-    navigate("/posts");
   };
 
   const handleTagChange = (selectedOptions: any) => {
@@ -133,6 +141,12 @@ const CreatePostPage = () => {
               </Form>
             )}
           </Formik>
+          {postLoading && (
+            <div className="text-green-500 text-xs mt-1">Please wait...</div>
+          )}
+          {!postLoading && postError && (
+            <div className="text-red-500 text-xs mt-1">{postError}</div>
+          )}
         </div>
       </div>
     </div>

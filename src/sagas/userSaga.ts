@@ -11,6 +11,8 @@ import {
   fetchUsersFailure,
   fetchUsersSuccess,
   login,
+  setError,
+  setLoading,
   setMe,
   setRedirect,
   signup,
@@ -41,6 +43,7 @@ function* fetchMe(): Generator<any, void, any> {
 
 function* handleLogin(action: any): Generator<any, void, any> {
   const { userName, password } = action.payload;
+  yield put(setLoading(true));
   try {
     const response = yield axios.post(`${BASE_URL}/user/login`, {
       userName,
@@ -56,16 +59,23 @@ function* handleLogin(action: any): Generator<any, void, any> {
 
       yield put(setRedirect(true)); // Set the redirect flag to true
       yield put(startMessage("logged in successfully"));
+      yield put(setLoading(false));
     } else {
       // Handle login failure
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(setLoading(false));
+
+    yield put(setError(error.response.data.error));
+
     // Handle network or server errors
   }
 }
 
 function* handleSignup(action: any): Generator<any, void, any> {
   const { userName, email, password, image } = action.payload;
+  yield put(setLoading(true));
+
   try {
     const formData = new FormData();
     formData.append("userName", userName);
@@ -83,10 +93,16 @@ function* handleSignup(action: any): Generator<any, void, any> {
       // yield put(signup({ token, user }));
       yield put(login({ token, user }));
       yield put(setRedirect(true)); // Set the redirect flag to true
+      yield put(setLoading(false));
     } else {
       // Handle signup failure
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(setLoading(false));
+
+    yield put(setError(error.response.data.error));
+
+    console.log(error);
     // Handle network or server errors
   }
 }

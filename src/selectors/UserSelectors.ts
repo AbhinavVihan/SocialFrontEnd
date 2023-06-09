@@ -24,3 +24,13 @@ export const selectUserById = createSelector([selectUserState], (users) => {
 export const selectMessage = createSelector([selectUserState], (users) => {
   return users.message;
 });
+
+export const selectError = createSelector(
+  [selectUserState],
+  (user) => user.error
+);
+
+export const selectLoading = createSelector(
+  [selectUserState],
+  (user) => user.loading
+);
