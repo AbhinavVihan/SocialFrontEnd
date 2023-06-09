@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
-import { USER_SIGNUP } from "../store/userSlice";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { USER_SIGNUP, setRedirect } from "../store/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../store/types";
 
 const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const redirect = useSelector((state: RootState) => state.users_all.redirect);
   const [profileImage, setProfileImage] = useState<File | null>(null);
 
   const handleSignup = (values: any) => {
@@ -22,6 +25,13 @@ const SignupPage: React.FC = () => {
     const file = event.currentTarget.files?.[0];
     setProfileImage(file ?? null);
   };
+
+  useEffect(() => {
+    if (redirect) {
+      navigate("/posts");
+      dispatch(setRedirect(false)); // Reset the redirect flag
+    }
+  }, [redirect, navigate, dispatch]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">

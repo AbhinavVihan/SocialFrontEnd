@@ -75,13 +75,14 @@ function* handleSignup(action: any): Generator<any, void, any> {
 
     const response = yield axios.post(`${BASE_URL}/user/signup`, formData);
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       // Signup success
       const { token, user } = response.data;
       // Store token in local storage
       localStorage.setItem("token", token);
-      yield put(signup({ token, user }));
+      // yield put(signup({ token, user }));
       yield put(login({ token, user }));
+      yield put(setRedirect(true)); // Set the redirect flag to true
     } else {
       // Handle signup failure
     }
