@@ -19,6 +19,7 @@ import {
 } from "../store/userSlice";
 import axios from "axios";
 import { FTECH_FOLLOWED_POSTS } from "./postSaga";
+import { BASE_URL } from "../helpers/api";
 
 function* fetchMe(): Generator<any, void, any> {
   try {
@@ -33,24 +34,16 @@ function* fetchMe(): Generator<any, void, any> {
       },
     };
 
-    const response = yield call(
-      axios.get,
-      "http://localhost:3001/user/me",
-      config
-    );
+    const response = yield call(axios.get, `${BASE_URL}/user/me`, config);
     const { user } = response.data;
     yield put(setMe({ user }));
-
-    // yield put(setMe(userData));
-  } catch (error) {
-    // yield put(setError(error.message));
-  }
+  } catch (error) {}
 }
 
 function* handleLogin(action: any): Generator<any, void, any> {
   const { userName, password } = action.payload;
   try {
-    const response = yield axios.post("http://localhost:3001/user/login", {
+    const response = yield axios.post(`${BASE_URL}/user/login`, {
       userName,
       password,
     });
@@ -64,15 +57,11 @@ function* handleLogin(action: any): Generator<any, void, any> {
 
       yield put(setRedirect(true)); // Set the redirect flag to true
       yield put(startMessage("logged in successfully"));
-
-      // yield put(fetchUsers());
     } else {
       // Handle login failure
-      // You can dispatch an action to update the state accordingly
     }
   } catch (error) {
     // Handle network or server errors
-    // You can dispatch an action to update the state accordingly
   }
 }
 
@@ -85,10 +74,7 @@ function* handleSignup(action: any): Generator<any, void, any> {
     formData.append("password", password);
     formData.append("image", image);
 
-    const response = yield axios.post(
-      "http://localhost:3001/user/signup",
-      formData
-    );
+    const response = yield axios.post(`${BASE_URL}/user/signup`, formData);
 
     if (response.status === 200) {
       // Signup success
@@ -99,11 +85,9 @@ function* handleSignup(action: any): Generator<any, void, any> {
       yield put(login({ token, user }));
     } else {
       // Handle signup failure
-      // You can dispatch an action to update the state accordingly
     }
   } catch (error) {
     // Handle network or server errors
-    // You can dispatch an action to update the state accordingly
   }
 }
 
@@ -116,10 +100,7 @@ function* handleFetchUsers(): Generator<any, void, any> {
   };
 
   try {
-    const response = yield axios.get(
-      "http://localhost:3001/user/users",
-      config
-    );
+    const response = yield axios.get(`${BASE_URL}/user/users`, config);
 
     if (response.status === 200) {
       const users = response.data;
@@ -143,15 +124,10 @@ function* handleFollowUser(action: any): Generator<any, void, any> {
       },
     };
 
-    yield axios.post(
-      "http://localhost:3001/user/follow",
-      { userIdToFollow },
-      config
-    );
+    yield axios.post(`${BASE_URL}/user/follow`, { userIdToFollow }, config);
     yield put({ type: FETCH_USERS });
 
     // Fetch updated user list after following user
-    // yield put(fetchUsers());
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);
@@ -169,16 +145,11 @@ function* handleUnFollowUser(action: any): Generator<any, void, any> {
       },
     };
 
-    yield axios.post(
-      "http://localhost:3001/user/unfollow",
-      { userIdToUnFollow },
-      config
-    );
+    yield axios.post(`${BASE_URL}/user/unfollow`, { userIdToUnFollow }, config);
 
     yield put({ type: FETCH_USERS });
 
     // Fetch updated user list after following user
-    // yield put(fetchUsers());
   } catch (error) {
     // Handle error
     console.log("Error following user:", error);
@@ -198,17 +169,15 @@ function* getUserById(action: any): Generator<any, void, any> {
     const { userId } = action.payload;
     const response = yield call(
       axios.get,
-      `http://localhost:3001/user/userById/?userId=${userId}`,
+      `${BASE_URL}/user/userById/?userId=${userId}`,
       config
     );
 
-    const { user, posts } = response.data; // Assuming the response contains the user object
+    const { user, posts } = response.data;
     yield put({ type: FETCH_USERS });
     yield put(fetchUserByIdSuccess({ user, posts }));
     yield put({ type: FTECH_FOLLOWED_POSTS });
-  } catch (error) {
-    // yield put(fetchUserByIdFailure(error.message));
-  }
+  } catch (error) {}
 }
 
 function* userSaga() {

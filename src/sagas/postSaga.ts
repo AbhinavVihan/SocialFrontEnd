@@ -6,6 +6,7 @@ import {
   getFollowingPostsSuccess,
 } from "../store/postSlice";
 import { FETCH_USERS } from "../store/userSlice";
+import { BASE_URL } from "../helpers/api";
 
 export const CREATE_POST = "post/createPost";
 export const FTECH_FOLLOWED_POSTS = "fetch/followed_posts";
@@ -39,7 +40,7 @@ function* handleCreatePost(action: any): Generator<any, void, any> {
     };
 
     const response = yield axios.post(
-      "http://localhost:3001/posts/create",
+      `${BASE_URL}/posts/create`,
       formData,
       config
     );
@@ -56,7 +57,6 @@ function* handleCreatePost(action: any): Generator<any, void, any> {
 
 function* getFollowingPostsSaga(): Generator<any, void, any> {
   // Set the authorization header in the axios instance
-  // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const config = {
     headers: {
@@ -68,7 +68,7 @@ function* getFollowingPostsSaga(): Generator<any, void, any> {
 
     const response = yield call(
       axios.get,
-      "http://localhost:3001/posts/getFollowingPosts",
+      `${BASE_URL}/posts/getFollowingPosts`,
       config
     );
 
@@ -77,7 +77,6 @@ function* getFollowingPostsSaga(): Generator<any, void, any> {
     yield put(getFollowingPostsSuccess(response.data));
   } catch (error) {
     // Dispatch a failure action with the error
-    // yield put(getFollowingPostsFailure(error));
   }
 }
 
@@ -85,7 +84,6 @@ function* likePost(action: any): Generator<any, void, any> {
   const { postId } = action.payload;
 
   // Set the authorization header in the axios instance
-  // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const config = {
     headers: {
@@ -96,7 +94,7 @@ function* likePost(action: any): Generator<any, void, any> {
   try {
     // Make the API call using axios
 
-    yield axios.get("http://localhost:3001/posts/like", config);
+    yield axios.get(`${BASE_URL}/posts/like`, config);
 
     yield put({ type: FTECH_FOLLOWED_POSTS });
     yield put({ type: FETCH_USERS });
@@ -104,7 +102,6 @@ function* likePost(action: any): Generator<any, void, any> {
     // Dispatch a success action with the response data
   } catch (error) {
     // Dispatch a failure action with the error
-    // yield put(getFollowingPostsFailure(error));
   }
 }
 
@@ -112,7 +109,6 @@ function* unlikePost(action: any): Generator<any, void, any> {
   const { postId } = action.payload;
 
   // Set the authorization header in the axios instance
-  // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const config = {
     headers: {
@@ -123,21 +119,17 @@ function* unlikePost(action: any): Generator<any, void, any> {
   try {
     // Make the API call using axios
 
-    yield axios.get("http://localhost:3001/posts/unlike", config);
+    yield axios.get(`${BASE_URL}/posts/unlike`, config);
     yield put({ type: FTECH_FOLLOWED_POSTS });
 
     // Dispatch a success action with the response data
   } catch (error) {
     // Dispatch a failure action with the error
-    // yield put(getFollowingPostsFailure(error));
   }
 }
 
 function* addComment(action: any): Generator<any, void, any> {
   const { postId, content } = action.payload;
-
-  // Set the authorization header in the axios instance
-  // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   console.log(content);
   const config = {
@@ -149,7 +141,7 @@ function* addComment(action: any): Generator<any, void, any> {
     // Make the API call using axios
 
     yield axios.post(
-      "http://localhost:3001/posts/addComment",
+      `${BASE_URL}/posts/addComment`,
       { postId, content },
       config
     );
@@ -159,7 +151,6 @@ function* addComment(action: any): Generator<any, void, any> {
     // Dispatch a success action with the response data
   } catch (error) {
     // Dispatch a failure action with the error
-    // yield put(getFollowingPostsFailure(error));
   }
 }
 

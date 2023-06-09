@@ -39,6 +39,7 @@ const CreatePostPage = () => {
       type: CREATE_POST,
       payload: { title, content, image: selectedImage, selectedTags },
     });
+    navigate("/posts");
   };
 
   const handleTagChange = (selectedOptions: any) => {

@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { call, put } from "redux-saga/effects";
 
+export const BASE_URL = "https://social-backend-1amu.onrender.com";
+
 interface ApiResponse<T = any> {
   data: T;
   status: number;
