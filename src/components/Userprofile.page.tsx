@@ -9,7 +9,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { USER_BYID, logout, setError } from "../store/userSlice";
 import { COMMENT_ONPOST, LIKE_POST, UNLIKE_POST } from "../sagas/postSaga";
 import { dateSorter, formatDate } from "../helpers/formattedDate";
-import { selectAllPosts } from "../selectors/PostSelectors";
 import Loading from "./Loading";
 
 const UserProfilePage: React.FC<{}> = () => {
@@ -17,7 +16,6 @@ const UserProfilePage: React.FC<{}> = () => {
   const { userId } = useParams();
   const userProfile = useSelector(selectUserById);
   const [comment, setComment] = useState("");
-  const posts = useSelector(selectAllPosts);
   const currentUser = useSelector(selectCurrentUser);
   const [call, setCall] = useState(false);
   const navigate = useNavigate();
@@ -51,8 +49,9 @@ const UserProfilePage: React.FC<{}> = () => {
   };
 
   const shouldShowLikeButton = (currPostId: string) => {
-    const post = posts?.find((post) => post._id === currPostId);
+    const post = user.posts?.find((post) => post._id === currPostId);
     const liked = post?.likes.includes(currentUser?._id ?? "");
+
     return liked;
   };
   const author = (authorId: string) => {
@@ -65,35 +64,32 @@ const UserProfilePage: React.FC<{}> = () => {
     navigate("/");
   };
 
-  if (!userProfile[userId!]) {
+  const user = userProfile[userId!];
+
+  if (!user) {
     return <Loading />;
   }
 
-  const handleGoBack = () => {
-    navigate(-1); // Go back to the previous page
-  };
-
-  const user = userProfile[userId!];
-
   return (
     <div className="container mx-auto py-8">
-      <button
-        className="text-blue-500 hover:text-blue-700 mb-4"
-        onClick={handleGoBack}
-      >
-        Back
-      </button>
-      {currentUser?._id === userId && (
+      {isCurrentUser && (
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-3xl font-bold">{user.userName}</h1>
+          <Link
+            to="/tags"
+            className="text-blue-500 sm:ml-16 lg:mr-8 lg:ml-0 hover:text-blue-700 bg-transparent hover:bg-blue-500 hover:bg-opacity-25 border border-blue-500 hover:border-blue-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"
+          >
+            Tags
+          </Link>
           <button
-            className="text-red-500 hover:text-red-700"
+            className="text-red-500 hover:text-red-700 bg-transparent hover:bg-red-500 hover:bg-opacity-25 border border-red-500 hover:border-red-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"
             onClick={handleLogout}
           >
             Logout
           </button>
         </div>
       )}
+
       <div className="flex flex-col items-center">
         <div className="w-1/2 sm:w-1/4 mb-4">
           <img

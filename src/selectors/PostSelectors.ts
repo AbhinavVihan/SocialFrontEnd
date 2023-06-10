@@ -10,6 +10,11 @@ export const selectAllPosts = createSelector(
   (posts) => posts.followedPosts
 );
 
+export const selectTaggedPosts = createSelector(
+  [selectPostState],
+  (post) => post.taggedPosts
+);
+
 export const selectPostError = createSelector(
   [selectPostState],
   (post) => post.error

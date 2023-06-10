@@ -15,7 +15,6 @@ import {
   setLoading,
   setMe,
   setRedirect,
-  signup,
   startMessage,
 } from "../store/userSlice";
 import axios from "axios";
@@ -26,9 +25,6 @@ function* fetchMe(): Generator<any, void, any> {
   try {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      return;
-    }
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -56,7 +52,7 @@ function* handleLogin(action: any): Generator<any, void, any> {
       localStorage.setItem("token", token);
       // Login success
       yield put(login({ token, user }));
-
+      yield put({ type: FTECH_FOLLOWED_POSTS });
       yield put(setRedirect(true)); // Set the redirect flag to true
       yield put(startMessage("logged in successfully"));
       yield put(setLoading(false));

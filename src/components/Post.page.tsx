@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   COMMENT_ONPOST,
   FTECH_FOLLOWED_POSTS,
@@ -19,7 +19,6 @@ const PostPage = () => {
   const posts = useSelector(selectAllPosts);
   const users = useSelector(selectAllUsers);
   const currentUser = useSelector(selectCurrentUser);
-  const navigate = useNavigate();
 
   const handleLike = (postId: string) => {
     dispatch({ type: LIKE_POST, payload: { postId } });
@@ -47,7 +46,7 @@ const PostPage = () => {
   const createPostLink = (noPost?: boolean) => (
     <Link
       to="/createPost"
-      className={`text-gray-500 flex flex-col items-center justify-center ${
+      className={`"text-blue-500 hover:text-blue-700 bg-transparent hover:bg-blue-500 hover:bg-opacity-25 border border-black hover:border-blue-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-outflex flex-col items-center justify-center ${
         noPost && "mt-5"
       } hover:text-gray-900 font-bold`}
     >
@@ -71,14 +70,10 @@ const PostPage = () => {
             Go to Users Page
           </Link>
         </div>
-        {createPostLink(true)}
+        <div className="flex justify-center">{createPostLink(true)}</div>
       </div>
     );
   }
-
-  const handleGoBack = () => {
-    navigate(-1); // Go back to the previous page
-  };
 
   const authorLink = (post: Post) => {
     const user = users.find((u) => u._id === post.author);
@@ -91,18 +86,12 @@ const PostPage = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <button
-        className="text-blue-500 top-4 left-4 pl-5 pt-5 hover:text-blue-700 mb-4"
-        onClick={handleGoBack}
-      >
-        Back
-      </button>
       <div className="flex justify-center flex-col items-center mb-4 gap-4">
         <Link
           to="/users"
-          className="text-blue-500 hover:text-blue-700 font-bold"
+          className="text-blue-500 hover:text-blue-700 bg-transparent hover:bg-blue-500 hover:bg-opacity-25 border border-black hover:border-blue-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"
         >
-          Go to Users Page
+          Users
         </Link>
         {createPostLink()}
       </div>

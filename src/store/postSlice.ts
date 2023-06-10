@@ -5,6 +5,19 @@ interface PostState {
   error: string | null;
   loading: boolean;
   followedPosts: Post[] | null;
+  taggedPosts:
+    | {
+        _id: string;
+        title: string;
+        content: string;
+        author: {
+          _id: string;
+          userName: string;
+        };
+        imageUrl: string;
+        createdAt: string;
+      }[]
+    | null;
 }
 
 export interface Post {
@@ -37,6 +50,7 @@ const initialState: PostState = {
   error: null,
   loading: false,
   followedPosts: null,
+  taggedPosts: null,
 };
 
 const postSlice = createSlice({
@@ -63,6 +77,9 @@ const postSlice = createSlice({
     getFollowingPostsSuccess: (state, action) => {
       state.followedPosts = action.payload;
     },
+    getTaggedPostsSuccess: (state, action) => {
+      state.taggedPosts = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -78,6 +95,7 @@ export const {
   createPostFailure,
   resetPost,
   getFollowingPostsSuccess,
+  getTaggedPostsSuccess,
   setError,
   setLoading,
 } = postSlice.actions;

@@ -6,12 +6,14 @@ import {
   getFollowingPostsSuccess,
   setLoading,
   setError,
+  getTaggedPostsSuccess,
 } from "../store/postSlice";
 import { FETCH_USERS } from "../store/userSlice";
 import { BASE_URL } from "../helpers/api";
 
 export const CREATE_POST = "post/createPost";
 export const FTECH_FOLLOWED_POSTS = "fetch/followed_posts";
+export const FTECH_TAGGED_POSTS = "fetch/tagged_posts";
 export const LIKE_POST = "like/post";
 export const UNLIKE_POST = "unlike/post";
 
@@ -155,9 +157,33 @@ function* addComment(action: any): Generator<any, void, any> {
   }
 }
 
+function* getTaggedPostsSaga(): Generator<any, void, any> {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+    },
+  };
+  try {
+    // Make the API call using axios
+
+    const response = yield call(
+      axios.get,
+      `${BASE_URL}/posts/getTaggedPosts`,
+      config
+    );
+
+    // Dispatch a success action with the response data
+    yield put({ type: FETCH_USERS });
+    yield put(getTaggedPostsSuccess(response.data));
+  } catch (error) {
+    // Dispatch a failure action with the error
+  }
+}
+
 function* postSaga() {
   yield takeEvery(CREATE_POST, handleCreatePost);
   yield takeEvery(FTECH_FOLLOWED_POSTS, getFollowingPostsSaga);
+  yield takeEvery(FTECH_TAGGED_POSTS, getTaggedPostsSaga);
   yield takeEvery(LIKE_POST, likePost);
   yield takeEvery(UNLIKE_POST, unlikePost);
 
