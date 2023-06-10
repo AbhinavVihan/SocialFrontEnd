@@ -30,7 +30,7 @@ const UsersPage = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="text-center mt-4">
+      <div className="text-center sticky top-20 bg-white mx-auto">
         <Link
           to="/posts"
           className="text-green-500 hover:text-green-700 bg-transparent hover:bg-green-500 hover:bg-opacity-25 border border-black hover:border-green-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"
@@ -38,6 +38,10 @@ const UsersPage = () => {
           Browse posts
         </Link>
       </div>
+      <h1 className="text-2xl flex mt-4 justify-center font-bold mb-4">
+        Here is the list of all the users
+      </h1>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {users
           .filter((user) => user._id !== currentUser?._id)

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { USER_LOGIN, setRedirect } from "../store/userSlice";
+import { USER_LOGIN, setError, setRedirect } from "../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../store/types";
@@ -97,7 +97,11 @@ const LoginPage: React.FC = () => {
         )}
         <div className="text-center">
           Not registered yet?{" "}
-          <Link to="/signup" className="text-indigo-600 hover:text-indigo-800">
+          <Link
+            onClick={() => dispatch(setError(""))}
+            to="/signup"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
             Sign up here
           </Link>
         </div>

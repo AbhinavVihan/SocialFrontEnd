@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_SIGNUP, setRedirect } from "../store/userSlice";
+import { USER_SIGNUP, setError, setRedirect } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../store/types";
 import { selectError, selectLoading } from "../selectors/UserSelectors";
@@ -145,7 +145,11 @@ const SignupPage: React.FC = () => {
         )}
         <div className="text-center">
           Already a user?{" "}
-          <Link to="/" className="text-indigo-600 hover:text-indigo-800">
+          <Link
+            onClick={() => dispatch(setError(""))}
+            to="/"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
             Sign in here
           </Link>
         </div>

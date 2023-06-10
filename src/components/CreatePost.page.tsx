@@ -60,18 +60,8 @@ const CreatePostPage = () => {
       return { value: u._id, label: u.userName };
     });
 
-  const handleGoBack = () => {
-    navigate(-1); // Go back to the previous page
-  };
-
   return (
     <div className="bg-gray-100">
-      <button
-        className="text-blue-500 top-4 left-4 pl-5 pt-5 hover:text-blue-700 mb-4"
-        onClick={handleGoBack}
-      >
-        Back
-      </button>
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

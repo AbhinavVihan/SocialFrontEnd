@@ -86,7 +86,7 @@ const PostPage = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="flex justify-center flex-col items-center mb-4 gap-4">
+      <div className="flex justify-center flex-col items-center mb-4 gap-4 sticky top-20 bg-white shadow mx-auto py-4 px-8">
         <Link
           to="/users"
           className="text-blue-500 hover:text-blue-700 bg-transparent hover:bg-blue-500 hover:bg-opacity-25 border border-black hover:border-blue-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"
