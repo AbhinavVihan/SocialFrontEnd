@@ -14,9 +14,9 @@ const TaggedPosts: React.FC = () => {
     dispatch({ type: FTECH_TAGGED_POSTS });
   }, [dispatch]);
 
-  if (taggedPosts?.length === 0) {
+  if (!taggedPosts) {
     return <Loading />;
-  } else if (!taggedPosts) {
+  } else if (taggedPosts?.length === 0) {
     return (
       <div className="container mx-auto py-8">
         <div className="flex flex-col items-center justify-center">
