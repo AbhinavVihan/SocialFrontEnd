@@ -30,7 +30,7 @@ const UsersPage = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="text-center sticky top-20 bg-white mx-auto">
+      <div className="text-center sticky top-20 h-10 bg-white mx-auto">
         <Link
           to="/posts"
           className="text-green-500 hover:text-green-700 bg-transparent hover:bg-green-500 hover:bg-opacity-25 border border-black hover:border-green-700 rounded-full px-4 py-2 transition-colors duration-300 ease-in-out"

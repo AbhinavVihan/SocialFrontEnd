@@ -98,7 +98,6 @@ function* handleSignup(action: any): Generator<any, void, any> {
 
     yield put(setError(error.response.data.error));
 
-    console.log(error);
     // Handle network or server errors
   }
 }

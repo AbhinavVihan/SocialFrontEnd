@@ -114,6 +114,9 @@ const SignupPage: React.FC = () => {
               />
             </div>
             <div>
+              <label className="block" htmlFor="profileImage">
+                Upload your photo
+              </label>
               <input
                 id="profileImage"
                 name="profileImage"

@@ -13,6 +13,9 @@ const Header = () => {
   );
 
   const handleGoBack = () => {
+    if (currentUser && location.pathname.includes("posts")) {
+      return;
+    }
     navigate(-1); // Go back to the previous page
   };
   return showUserLink ? (

@@ -101,7 +101,12 @@ const CreatePostPage = () => {
                   />
                 </div>
                 <div>
+                  <label className="block" htmlFor="postImage">
+                    photo for the post
+                  </label>
                   <input
+                    className="mb-4"
+                    id="postImage"
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
@@ -111,7 +116,7 @@ const CreatePostPage = () => {
                     <Select
                       id="tags-input"
                       name="tags"
-                      placeholder="Enter tags separated by commas"
+                      placeholder="Select a tag"
                       isMulti={true}
                       options={tagOptions}
                       value={selectedTags}

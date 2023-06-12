@@ -72,7 +72,7 @@ const UserProfilePage: React.FC<{}> = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 text-center sticky top-12 bg-white mx-auto">
         <h1 className="text-3xl font-bold">{user.userName}</h1>
         {isCurrentUser && (
           <>
