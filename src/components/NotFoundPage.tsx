@@ -13,7 +13,7 @@ const NotFoundPage = () => {
         to="/"
         className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300 mb-10"
       >
-        Contacts Page
+        Login
       </Link>
     </div>
   );
